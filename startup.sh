@@ -8,15 +8,15 @@ else
         ### run once at container start IF no completion file ###
         
         # create config subfolder
-        if [ ! -d /config/folder-startup]; then
-           mkdir -p /config/folder-startup
+        if [ ! -d /config/folderstartup]; then
+           mkdir -p /config/folderstartup
         fi
-        if [ ! -d /config2/folder-startup]; then
-           mkdir -p /config2/folder-startup
+        if [ ! -d /config2/folderstartup]; then
+           mkdir -p /config2/folderstartup
         fi    
         
-        chmod -R 775 /config/folder-startup
-        chmod -R 775 /config2/folder-startup
+        chmod -R 775 /config/folderstartup
+        chmod -R 775 /config2/folderstartup
         
         echo -e "Do not remove this file.\nIf you do, root password will be reset to the one in" \
                 "the config" \
