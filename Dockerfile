@@ -28,7 +28,7 @@ RUN chmod +x /etc/my_init.d/startup.sh
 # the normal syntax does not work: VOLUME ["/var/lib/dhcp", "/etc/dhcp", "/scripts"]
 # volumes defined here are created AT container start
 #VOLUME /var/test
-VOLUME ["/config", "/data"]
+VOLUME ["/config", "/synced", "/data"]
 
 # Exposing http port
 EXPOSE 80
