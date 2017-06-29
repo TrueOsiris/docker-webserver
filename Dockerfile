@@ -17,6 +17,11 @@ RUN apt-get update \
 COPY test.conf /tmp/test.conf
 ADD test.conf /tmp/
 
+RUN groupadd syncthing
+RUN useradd --create-home --shell /bin/bash syncthing
+RUN echo 'syncthing:syncthing' | chpasswd
+USER syncthing
+
 ### startup scripts ###
 
 #Pre-config scrip that maybe need to be run one time only when the container run the first time .. using a flag to don't 
