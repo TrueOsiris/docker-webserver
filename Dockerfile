@@ -37,6 +37,6 @@ EXPOSE 80
 RUN groupadd syncthing
 RUN useradd -g syncthing --shell /bin/bash syncthing
 RUN echo 'syncthing:syncthing' | chpasswd
-USER syncthing
+#USER syncthing
 
 CMD ["/sbin/my_init"]
