@@ -8,10 +8,10 @@ else
         ### run once at container start IF no completion file ###
         
         # create config subfolder
-        if [ ! -d /config/folderstartup]; then
+        if [ ! -d /config/folderstartup ]; then
            mkdir -p /config/folderstartup
         fi
-        if [ ! -d /config2/folderstartup]; then
+        if [ ! -d /config2/folderstartup ]; then
            mkdir -p /config2/folderstartup
         fi    
         
