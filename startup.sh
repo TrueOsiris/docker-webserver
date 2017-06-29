@@ -11,9 +11,6 @@ else
         if [ ! -d /config/folderstartup ]; then
            mkdir -p /config/folderstartup
         fi
-        if [ ! -d /config2/folderstartup ]; then
-           mkdir -p /config2/folderstartup
-        fi    
         
         echo -e "Do not remove this file.\nIf you do, root password will be reset to the one in" \
                 "the config" \
