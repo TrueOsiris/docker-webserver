@@ -28,14 +28,9 @@ RUN chmod +x /etc/my_init.d/startup.sh
 # the normal syntax does not work: VOLUME ["/var/lib/dhcp", "/etc/dhcp", "/scripts"]
 # volumes defined here are created AT container start
 #VOLUME /var/test
-VOLUME ["/config"]
+VOLUME ["/config", "/data"]
 
 # Exposing http port
 EXPOSE 80
-
-RUN groupadd syncthing
-RUN useradd -g syncthing --shell /bin/bash syncthing
-RUN echo 'syncthing:syncthing' | chpasswd
-#USER syncthing
 
 CMD ["/sbin/my_init"]
