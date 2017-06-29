@@ -15,9 +15,6 @@ else
            mkdir -p /config2/folderstartup
         fi    
         
-        chmod -R 775 /config/folderstartup
-        chmod -R 775 /config2/folderstartup
-        
         echo -e "Do not remove this file.\nIf you do, root password will be reset to the one in" \
                 "the config" \
                 "file.\n" > /config/hive.setup.initialised
