@@ -29,6 +29,7 @@ RUN chmod +x /etc/my_init.d/startup.sh
 # volumes defined here are created AT container start
 #VOLUME /var/test
 VOLUME ["/config"]
+VOLUME ["/config2"]
 
 # Exposing http port
 EXPOSE 80
