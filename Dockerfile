@@ -18,7 +18,7 @@ COPY test.conf /tmp/test.conf
 ADD test.conf /tmp/
 
 RUN groupadd syncthing
-RUN useradd --create-home --shell /bin/bash syncthing
+RUN useradd -g syncthing --shell /bin/bash syncthing
 RUN echo 'syncthing:syncthing' | chpasswd
 USER syncthing
 
