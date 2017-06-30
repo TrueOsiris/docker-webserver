@@ -1,8 +1,8 @@
 #!/bin/bash
 
 set -e
-
-if [ -f /shared/hive.setup.initialised ]; then
+initfile=$(hostname)\.initialised
+if [ -f /synced/$(initfile) ]; then
         echo 'initial configuration done.'
 else    
         ### run once at container start IF no completion file ###
@@ -25,8 +25,6 @@ else
         #cp /tmp/base.conf /shared/
         #cp /tmp/base.conf /synced/
         
-        echo -e "Do not remove this file.\nIf you do, root password will be reset to the one in" \
-                "the config" \
-                "file.\n" > /shared/hive.setup.initialised
-        date >> /shared/hive.setup.initialised
+        echo -e "Do not remove this file.\nIf you do, container will be fully reset on next start." > /synced/$(initfile)
+        date >> /synced/$(initfile)
 fi
