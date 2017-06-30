@@ -2,7 +2,7 @@
 
 set -e
 initfile=$(hostname)\.initialised
-if [ -f /synced/$(initfile) ]; then
+if [ -f /synced/$(echo $initfile) ]; then
         echo 'initial configuration done.'
 else    
         ### run once at container start IF no completion file ###
@@ -25,6 +25,6 @@ else
         #cp /tmp/base.conf /shared/
         #cp /tmp/base.conf /synced/
         
-        echo -e "Do not remove this file.\nIf you do, container will be fully reset on next start." > /synced/$(initfile)
-        date >> /synced/$(initfile)
+        echo -e "Do not remove this file.\nIf you do, container will be fully reset on next start." > /synced/$(echo $initfile)
+        date >> /synced/$(echo $initfile)
 fi
