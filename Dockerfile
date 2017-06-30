@@ -11,6 +11,7 @@ RUN apt-get update \
                        bridge-utils \
                        vim \
                        libltdl7 \
+ && apt-get -f -y install \
  && apt-get autoclean -y \
  && apt-get autoremove -y \
  && rm -rf /var/lib/apt/lists/* \
