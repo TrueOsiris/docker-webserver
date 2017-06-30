@@ -8,6 +8,7 @@ RUN apt-get update \
  && apt-get install -y net-tools \
                        iputils-ping \
                        vim \
+                       libltdl7 \
  && apt-get autoclean -y \
  && apt-get autoremove -y \
  && rm -rf /var/lib/apt/lists/* \
