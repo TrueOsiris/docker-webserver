@@ -37,7 +37,7 @@ RUN chmod +x /etc/service/nodefile/run \
 # the normal syntax does not work: VOLUME ["/var/lib/dhcp", "/etc/dhcp", "/scripts"]
 # volumes defined here are created AT container start
 #VOLUME /var/test
-VOLUME ["/config", "/shared", "/data"]
+VOLUME ["/config", "/shared", "/data", "/var/run/docker.sock"]
 
 # Exposing http port
 EXPOSE 80
