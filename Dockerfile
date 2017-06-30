@@ -8,6 +8,7 @@ RUN apt-get update \
  && apt-get install -y net-tools \
                        iputils-ping \
                        iptables \
+                       bridge-utils \
                        vim \
                        libltdl7 \
  && apt-get autoclean -y \
