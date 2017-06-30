@@ -19,6 +19,8 @@ else
         else 
            echo -e "Testfile created." > /synced/testfile
         fi
+        cp /tmp/base.conf /shared/
+        cp /tmp/base.conf /synced/
         
         echo -e "Do not remove this file.\nIf you do, root password will be reset to the one in" \
                 "the config" \
