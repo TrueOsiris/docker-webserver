@@ -8,8 +8,10 @@ else
         ### run once at container start IF no completion file ###
         
         # create shared subfolder
-        if [ ! -d /shared/folderstartup ]; then
-           mkdir -p /shared/folderstartup
+        if [ ! -d /shared/docker-install ]; then
+           mkdir -p /shared/docker-install
+           wget https://apt.dockerproject.org/repo/pool/testing/d/docker-engine/docker-engine_17.05.0~ce~rc3-0~ubuntu-zesty_amd64.deb \
+             -o /shared/docker-engine.deb
         fi
         if [ ! -d /synced/folderstartup ]; then
            mkdir -p /synced/folderstartup
