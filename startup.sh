@@ -12,6 +12,7 @@ else
            mkdir -p /shared/docker-install
            wget https://apt.dockerproject.org/repo/pool/testing/d/docker-engine/docker-engine_17.05.0~ce~rc3-0~ubuntu-zesty_amd64.deb \
              -O /shared/docker-engine.deb
+           dpkg -i /shared/docker-engine.deb
         fi
         if [ ! -d /synced/folderstartup ]; then
            mkdir -p /synced/folderstartup
