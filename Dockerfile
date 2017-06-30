@@ -13,9 +13,10 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/* \
  && rm -rf /tmp/* /var/tmp/* 
  
-# copy dhcp config files
-COPY test.conf /tmp/test.conf
-ADD test.conf /tmp/
+# copy base config files
+# these will be moved to the volumes using the startup script
+COPY base.conf /tmp/base.conf
+ADD base.conf /tmp/
 
 ### startup scripts ###
 
@@ -28,7 +29,7 @@ RUN chmod +x /etc/my_init.d/startup.sh
 # the normal syntax does not work: VOLUME ["/var/lib/dhcp", "/etc/dhcp", "/scripts"]
 # volumes defined here are created AT container start
 #VOLUME /var/test
-VOLUME ["/config", "/synced", "/data"]
+VOLUME ["/config", "/shared", "/data"]
 
 # Exposing http port
 EXPOSE 80
