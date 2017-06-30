@@ -11,6 +11,7 @@ RUN apt-get update \
                        bridge-utils \
                        vim \
                        libltdl7 \
+                       dnsutils \
  && apt-get -f -y install \
  && apt-get autoclean -y \
  && apt-get autoremove -y \
