@@ -6,9 +6,10 @@ if [ -f /synced/$(echo $initfile) ]; then
         echo 'initial configuration done.'
 else    
         ### run once at container start IF no completion file ###
-        wget https://apt.dockerproject.org/repo/pool/testing/d/docker-engine/docker-engine_17.05.0~ce~rc3-0~ubuntu-zesty_amd64.deb \
-         -O /tmp/docker-engine.deb
-        dpkg -i /tmp/docker-engine.deb
+        #wget https://apt.dockerproject.org/repo/pool/testing/d/docker-engine/docker-engine_17.05.0~ce~rc3-0~ubuntu-zesty_amd64.deb \
+        # -O /tmp/docker-engine.deb
+        #dpkg -i /tmp/docker-engine.deb
+        
         
         # create shared subfolder
         #if [ ! -d /shared/docker-install ]; then
