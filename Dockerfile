@@ -3,7 +3,8 @@ FROM quantumobject/docker-baseimage:latest
 MAINTAINER Tim Chaubet "tim@chaubet.be"
 
 ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get update \
+RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
+ && apt-get update \
  && apt-get upgrade -y \
  && apt-get install -y net-tools \
                        iputils-ping \
@@ -12,6 +13,7 @@ RUN apt-get update \
                        vim \
                        libltdl7 \
                        dnsutils \
+                       docker-ce \
  && apt-get -f -y install \
  && apt-get autoclean -y \
  && apt-get autoremove -y \
