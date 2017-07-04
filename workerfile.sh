@@ -9,7 +9,7 @@ if [ -f $workerfile ]; then
       echo "checking $f" >> $workerfile
       for word in $(<$f)
       do
-        if [ "$HOST_HOSTNAME" = "$word" ];
+        if [ "$HOST_HOSTNAME" = "$word" ]; then
           echo "worker $HOST_HOSTNAME is part of $f" >> $workerfile
           partofswarm=yes
         fi
