@@ -30,6 +30,7 @@ RUN apt-get update \
 COPY base.conf /tmp/base.conf
 ADD base.conf /tmp/
 
+
 ### startup scripts ###
 
 #Pre-config scrip that maybe need to be run one time only when the container run the first time .. using a flag to don't 
