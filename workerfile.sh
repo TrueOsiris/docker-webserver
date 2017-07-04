@@ -1,21 +1,35 @@
 #!/bin/bash
 workerfile=/synced/workers/$(echo $HOST_HOSTNAME)
-if [ -f $workerfile ]; then
-  if [ "$(( $(date +"%s") - $(stat -c "%Y" $workerfile) ))" -gt "4" ]; then
-    echo "test" > $workerfile
-    for f in /synced/managers/*
+function reachnode {
+  pingtest=$(ping -w 2 -c 1 $1)
+  echo $pingtest >> $workerfile
+}
+function gen_workerfile {
+  for f in /synced/managers/*
+  do
+    partofswarm=false
+    for node in $(<$f)
     do
-      partofswarm=no
-      echo "checking $f" >> $workerfile
-      for word in $(<$f)
+      if [ "$HOST_HOSTNAME" = "$node" ]; then
+        partofswarm=true
+      fi
+    done
+    if [ $partofswarm = true ]; then
+      for node in $(<$f)
       do
-        if [ "$HOST_HOSTNAME" = "$word" ]; then
-          echo "worker $HOST_HOSTNAME is part of $f" >> $workerfile
-          partofswarm=yes
+        if [ "$HOST_HOSTNAME" = "$node" ]; then
+          echo "$node;up" >> $workerfile
+        else
+          reachnode $node
         fi
       done
-    done
+    fi
+  done
+}
+if [ -f $workerfile ]; then
+  if [ "$(( $(date +"%s") - $(stat -c "%Y" $workerfile) ))" -gt "4" ]; then
+    gen_workerfile
   fi
 else
-  echo "test" > $workerfile
+  gen_workerfile
 fi
