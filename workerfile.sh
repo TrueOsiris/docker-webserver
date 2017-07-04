@@ -15,7 +15,7 @@ function gen_workerfile {
       fi
     done
     if [ $partofswarm = true ]; then
-      echo '' > $workerfile
+      > $workerfile
       for node in $(<$f)
       do
         if [ "$HOST_HOSTNAME" = "$node" ]; then
