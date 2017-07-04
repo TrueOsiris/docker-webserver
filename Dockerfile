@@ -18,7 +18,7 @@ RUN apt-get update \
 RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
  && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7EA0A9C3F273FCD8
 RUN apt-get update \
- && apt-get install -y docker-ce 
+ && apt-get install -y --allow-unauthenticated docker-ce 
 RUN apt-get autoclean -y \
  && apt-get autoremove -y \
  && rm -rf /var/lib/apt/lists/* \
