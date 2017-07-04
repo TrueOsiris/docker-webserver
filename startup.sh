@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -e
-initfile=$(HOST_HOSTNAME)\.initialised
+initfile=$(echo $HOST_HOSTNAME)\.initialised
 if [ -f /synced/$(echo $initfile) ]; then
         echo 'initial configuration done.'
 else    
