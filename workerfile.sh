@@ -1,11 +1,9 @@
 #!/bin/bash
-#isManager=$(docker node ls --format {{.Hostname}} 2>/dev/null)
-#if [ "$isManager" != "" ]; then
-  if [ -f /synced/workers/$(echo $HOST_HOSTNAME) ]; then
-    if [ "$(( $(date +"%s") - $(stat -c "%Y" /synced/workers/$(echo $HOST_HOSTNAME)) ))" -gt "5" ]; then
-      echo "test" > /synced/workers/$(echo $HOST_HOSTNAME)
-    fi
-  else
-    echo "test" > /synced/workers/$(echo $HOST_HOSTNAME)
+workerfile=/synced/workers/$(echo $HOST_HOSTNAME)
+if [ -f $workerfile ]; then
+  if [ "$(( $(date +"%s") - $(stat -c "%Y" $workerfile) ))" -gt "5" ]; then
+    echo "test" > $workerfile
   fi
-#fi
+else
+  echo "test" > $workerfile
+fi
