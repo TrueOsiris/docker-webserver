@@ -29,7 +29,7 @@ function gen_workerfile {
           reachnode $node
         fi
       done
-      echo "}" > $workerfile
+      echo "}" >> $workerfile
     fi
   done
 }
