@@ -30,7 +30,7 @@ function gen_workerfile {
         fi
       done
       #sed -i '$ s/.$//' $workerfile
-      awk '{a[NR]=$0} END {for (i=1;i<NR;i++) print a[i];sub(/.$/,"",a[NR]);print a[NR]}' $workerfile > $workerfile
+      echo $(awk '{a[NR]=$0} END {for (i=1;i<NR;i++) print a[i];sub(/.$/,"",a[NR]);print a[NR]}' $workerfile) > $workerfile
       echo "}" >> $workerfile
     fi
   done
