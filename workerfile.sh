@@ -4,9 +4,9 @@ function reachnode {
   pingtest=$(ping -w 2 -c 1 $1 2>&1)
   pingtest=$( [[ $pingtest =~ bytes\ from\ ([a-z0-9]*)\.[a-z]*\ \(.* ]] && echo ${BASH_REMATCH[1]} )
   if [ "$pingtest" = "$1" ]; then
-    echo "$1 up" >> $workerfile
+    echo "\"$1\":\"up\"" >> $workerfile
   else
-    echo "$1 down" >> $workerfile
+    echo "\"$1\":\"down\"" >> $workerfile
   fi
 }
 function gen_workerfile {
@@ -20,15 +20,16 @@ function gen_workerfile {
       fi
     done
     if [ $partofswarm = true ]; then
-      > $workerfile
+      echo "{" > $workerfile
       for node in $(<$f)
       do
         if [ "$HOST_HOSTNAME" = "$node" ]; then
-          echo "$node up" >> $workerfile
+          echo "\"$node\":\"up\"" >> $workerfile
         else
           reachnode $node
         fi
       done
+      echo "}" > $workerfile
     fi
   done
 }
