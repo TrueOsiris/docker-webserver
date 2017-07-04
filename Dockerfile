@@ -15,9 +15,9 @@ RUN apt-get update \
                        docker-ce \
                        software-properties-common \
                        python-software-properties \
- && apt-get -f -y install \
- && add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
- && apt-get autoclean -y \
+ && apt-get -f -y install 
+ RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" 
+ RUN apt-get autoclean -y \
  && apt-get autoremove -y \
  && rm -rf /var/lib/apt/lists/* \
  && rm -rf /tmp/* /var/tmp/* 
