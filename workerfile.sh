@@ -1,7 +1,7 @@
 #!/bin/bash
 workerfile=/synced/workers/$(echo $HOST_HOSTNAME)
 function reachnode {
-  pingtest=$(ping -w 2 -c 1 $1)
+  pingtest=$(ping -w 2 -c 1 $1 2>&1)
   echo $pingtest >> $workerfile
 }
 function gen_workerfile {
