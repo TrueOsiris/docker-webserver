@@ -37,11 +37,17 @@ RUN mkdir -p /etc/my_init.d
 COPY startup.sh /etc/my_init.d/startup.sh
 RUN chmod +x /etc/my_init.d/startup.sh
 
-# add dhcpd daemon to runit
+# add nodefile daemon to runit
 RUN mkdir -p /etc/service/nodefile /var/log/nodefile ; sync
 COPY nodefile.sh /etc/service/nodefile/run
 RUN chmod +x /etc/service/nodefile/run \
     && cp /var/log/cron/config /var/log/nodefile/ 
+    
+# add workerfile daemon to runit
+RUN mkdir -p /etc/service/workerfile /var/log/workerfile ; sync
+COPY workerfile.sh /etc/service/workerfile/run
+RUN chmod +x /etc/service/workerfile/run \
+    && cp /var/log/cron/config /var/log/workerfile/ 
     
 # the normal syntax does not work: VOLUME ["/var/lib/dhcp", "/etc/dhcp", "/scripts"]
 # volumes defined here are created AT container start
