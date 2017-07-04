@@ -14,9 +14,9 @@ else
         if [ ! -d /synced/workers ]; then
            mkdir -p /synced/workers
         fi
-        #if [ ! -d /synced/folderstartup ]; then
-        #   mkdir -p /synced/folderstartup
-        #fi
+        if [ ! -d /synced/managers ]; then
+           mkdir -p /synced/managers
+        fi
         #if [ -f /synced/testfile ]; then
         #   date >> /synced/testfile 
         #else 
