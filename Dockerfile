@@ -12,11 +12,12 @@ RUN apt-get update \
                        vim \
                        libltdl7 \
                        dnsutils \
-                       docker-ce \
                        software-properties-common \
                        python-software-properties \
  && apt-get -f -y install 
- RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" 
+ RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
+  && apt-get update \
+  && apt-get install -y docker-ce 
  RUN apt-get autoclean -y \
  && apt-get autoremove -y \
  && rm -rf /var/lib/apt/lists/* \
