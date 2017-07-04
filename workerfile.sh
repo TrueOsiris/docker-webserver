@@ -2,7 +2,13 @@
 workerfile=/synced/workers/$(echo $HOST_HOSTNAME)
 function reachnode {
   pingtest=$(ping -w 2 -c 1 $1 2>&1)
+  pingtest=$( [[ $pingtest =~ bytes\ from\ ([a-z0-9]*)\.[a-z]*\ \(.* ]] && echo ${BASH_REMATCH[1]} )
   echo $pingtest >> $workerfile
+  if [ "$pingtest" = "$1" ]; then
+    echo $1;up >> $workerfile
+  else
+    echo $1;down >> $workerfile
+  fi
 }
 function gen_workerfile {
   for f in /synced/managers/*
