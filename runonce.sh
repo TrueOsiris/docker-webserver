@@ -1,5 +1,5 @@
 #!/bin/bash
-a2enmod rewrite
+a2enmod php7.0 rewrite
 chown -R www-data:www-data /synced/www /var/log/apache2
 sed -i 's/DocumentRoot \/var\/www\/html/DocumentRoot \/synced\/www\//' /etc/apache2/sites-enabled/000*.conf
 rm -R /var/www/html/
