@@ -14,7 +14,6 @@ RUN apt-get update \
                        dnsutils \
                        software-properties-common \
                        python-software-properties \
-                       jsonlint \
                        jq \
  && apt-get -f -y install \
  && add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
