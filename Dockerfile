@@ -29,8 +29,8 @@ RUN apt-get update \
  
 # copy base config files
 # these will be moved to the volumes using the startup script
-COPY base.conf /tmp/base.conf
-ADD base.conf /tmp/
+COPY apache2.conf /tmp/apache2.conf
+ADD apache2.conf /tmp/
 
 
 ### startup scripts ###
