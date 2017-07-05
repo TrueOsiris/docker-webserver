@@ -53,7 +53,7 @@ COPY workerfile.sh /etc/service/workerfile/run
 RUN chmod +x /etc/service/workerfile/run \
     && cp /var/log/cron/config /var/log/workerfile/ 
     
-# to add apache2 deamon to runit
+# add apache2 deamon to runit
 RUN mkdir -p /etc/service/apache2  /var/log/apache2 ; sync 
 COPY apache2.sh /etc/service/apache2/run
 RUN chmod +x /etc/service/apache2/run \
@@ -65,7 +65,7 @@ RUN chmod +x /sbin/runonce; sync \
     && /bin/bash -c /sbin/runonce \
     && rm /sbin/runonce
 
-VOLUME ["/synced", "/shared", "/data", "/var/run/docker.sock"]
+VOLUME ["/synced", "/var/run/docker.sock"]
 
 COPY apache2.conf /etc/apache2/apache2.conf
 
