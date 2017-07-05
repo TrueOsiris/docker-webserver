@@ -60,9 +60,11 @@ RUN chmod +x /etc/service/apache2/run \
     && cp /var/log/cron/config /var/log/apache2/ \
     && chown -R www-data /var/log/apache2
     
-# the normal syntax does not work: VOLUME ["/var/lib/dhcp", "/etc/dhcp", "/scripts"]
-# volumes defined here are created AT container start
-#VOLUME /var/test
+COPY runonce.sh /sbin/runonce
+RUN chmod +x /sbin/runonce; sync \
+    && /bin/bash -c /sbin/runonce \
+    && rm /sbin/runonce
+
 VOLUME ["/synced", "/shared", "/data", "/var/run/docker.sock"]
 
 COPY apache2.conf /etc/apache2/apache2.conf
