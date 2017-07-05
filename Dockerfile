@@ -65,6 +65,8 @@ RUN chmod +x /etc/service/apache2/run \
 #VOLUME /var/test
 VOLUME ["/synced", "/shared", "/data", "/var/run/docker.sock"]
 
+COPY apache2.conf /etc/apache2/apache2.conf
+
 # Exposing http port
 EXPOSE 80
 
