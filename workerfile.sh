@@ -1,4 +1,5 @@
 #!/bin/bash
+# this will create a workerfile for each node
 workerfile=/synced/workers/$(echo $HOST_HOSTNAME)
 function reachnode {
   pingtest=$(ping -w 2 -c 1 $1 2>&1)
