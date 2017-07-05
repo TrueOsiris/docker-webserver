@@ -6,7 +6,7 @@ function reachnode {
   if [ "$pingtest" = "$1" ]; then
     echo "{ \"$1\":\"up\" }," >> $workerfile
   else
-    echo "{ \"$1\":\"down\"} ," >> $workerfile
+    echo "{ \"$1\":\"down\" }," >> $workerfile
   fi
 }
 function gen_workerfile {
