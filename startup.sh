@@ -17,6 +17,9 @@ else
         if [ ! -d /synced/managers ]; then
            mkdir -p /synced/managers
         fi
+        if [ ! -d /synced/www ]; then
+           mkdir -p /synced/www
+        fi
         #if [ -f /synced/testfile ]; then
         #   date >> /synced/testfile 
         #else 
