@@ -53,6 +53,13 @@ COPY workerfile.sh /etc/service/workerfile/run
 RUN chmod +x /etc/service/workerfile/run \
     && cp /var/log/cron/config /var/log/workerfile/ 
     
+# to add apache2 deamon to runit
+RUN mkdir -p /etc/service/apache2  /var/log/apache2 ; sync 
+COPY apache2.sh /etc/service/apache2/run
+RUN chmod +x /etc/service/apache2/run \
+    && cp /var/log/cron/config /var/log/apache2/ \
+    && chown -R www-data /var/log/apache2
+    
 # the normal syntax does not work: VOLUME ["/var/lib/dhcp", "/etc/dhcp", "/scripts"]
 # volumes defined here are created AT container start
 #VOLUME /var/test
