@@ -27,7 +27,7 @@ else
         #fi
         #cp /tmp/base.conf /shared/
         #cp /tmp/base.conf /synced/
-        echo "<html><body><?php echo \"DocumentRoot /synced/www/ with php7.0 enabled\"; ?></body></html>" > /synced/www/index.php
+        echo "<html><body><? echo \"DocumentRoot /synced/www/ with php7.0 enabled\"; ?></body></html>" > /synced/www/index.php
 
         echo -e "Do not remove this file.\nIf you do, container will be fully reset on next start." > /synced/$(echo $initfile)
         date >> /synced/$(echo $initfile)
