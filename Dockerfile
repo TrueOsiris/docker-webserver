@@ -17,7 +17,7 @@ RUN apt-get update \
                        jq \
                        apache2 \
                        php7.0 \
-                       libapache2-mod-php \
+                       libapache2-mod-php7.0 \
                        php7.0-mbstring \
  && apt-get -f -y install \
  && add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
