@@ -23,7 +23,7 @@ else
            composer install --prefer-dist
            composer install --prefer-dist
            echo "<? header('Location: /public/'); ?>" > /synced/www/index.php
-           
+           sed -i 's/welcome\/index/hive\/index/' /synced/www/fuel/app/config/routes.php
         fi
 
         echo -e "Do not remove this file.\nIf you do, container will be fully reset on next start." > /synced/$(echo $initfile)
