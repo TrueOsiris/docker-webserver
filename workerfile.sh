@@ -14,7 +14,8 @@ function gen_workerfile {
   for f in /synced/managers/*
   do
     partofswarm=false
-    for node in $(<$f)
+    nodes=$(cat $f | jq -r '.[].manager')
+    for node in $nodes
     do
       if [ "$HOST_HOSTNAME" = "$node" ]; then
         partofswarm=true
@@ -22,7 +23,8 @@ function gen_workerfile {
     done
     if [ $partofswarm = true ]; then
       echo "[" > $workerfile
-      for node in $(<$f)
+      #for node in $(<$f)
+      for node in $nodes
       do
         echo "{ \"node\":\"$node\"," >> $workerfile
         if [ "$HOST_HOSTNAME" = "$node" ]; then
