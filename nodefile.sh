@@ -6,9 +6,9 @@ if [ "$isManager" != "" ]; then
   t="[ ${t::-1} ]"
   if [ -f $managerfile ]; then
     if [ "$(( $(date +"%s") - $(stat -c "%Y" $managerfile )))" -gt "60" ]; then
-      $t > $managerfile
+      echo $t > $managerfile
     fi
   else
-    $t > $managerfile
+    echo $t > $managerfile
   fi
 fi
