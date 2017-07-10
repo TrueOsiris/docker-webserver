@@ -19,6 +19,7 @@ else
            echo "<? header('Location: /public/'); ?>" > /synced/www/index.php
            sed -i 's/welcome\/index/hive\/index/' /synced/www/fuel/app/config/routes.php
            cp -TRv /tmp/fuelhive/ /synced/www/fuel/app/
+           cp /usr/share/javascript/jquery/jquery.min.js /synced/www/public/
         fi
         if [ ! -d /synced/www/workers ]; then
            mkdir -p /synced/www/workers
