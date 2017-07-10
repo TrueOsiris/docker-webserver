@@ -10,12 +10,6 @@ else
         ### will be reset to it's default state, unless the www
         ### folder is maintained.
         
-        if [ ! -d /synced/workers ]; then
-           mkdir -p /synced/workers
-        fi
-        if [ ! -d /synced/managers ]; then
-           mkdir -p /synced/managers
-        fi
         if [ ! -d /synced/www ]; then
            mkdir -p /synced/www
            git clone git://github.com/fuel/fuel.git /synced/www/
@@ -26,7 +20,12 @@ else
            sed -i 's/welcome\/index/hive\/index/' /synced/www/fuel/app/config/routes.php
            cp -TRv /tmp/fuelhive/ /synced/www/fuel/app/
         fi
-
+        if [ ! -d /synced/www/workers ]; then
+           mkdir -p /synced/www/workers
+        fi
+        if [ ! -d /synced/www/managers ]; then
+           mkdir -p /synced/www/managers
+        fi
         echo -e "Do not remove this file.\nIf you do, container will be fully reset on next start." > /synced/$(echo $initfile)
         date >> /synced/$(echo $initfile)
 fi
