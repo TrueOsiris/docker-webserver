@@ -1,6 +1,6 @@
 #!/bin/bash
 # this will create a workerfile for each node
-workerfile=/synced/workers/$(echo $HOST_HOSTNAME)
+workerfile=/synced/www/workers/$(echo $HOST_HOSTNAME)
 function reachnode {
   pingtest=$(ping -w 2 -c 1 $1 2>&1)
   pingtest=$( [[ $pingtest =~ bytes\ from\ ([a-z0-9]*)\.[a-z]*\ \(.* ]] && echo ${BASH_REMATCH[1]} )
@@ -11,7 +11,7 @@ function reachnode {
   fi
 }
 function gen_workerfile {
-  for f in /synced/managers/*
+  for f in /synced/www/managers/*
   do
     partofswarm=false
     nodes=$(cat $f | jq -r '.[].manager')
