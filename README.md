@@ -4,6 +4,10 @@ Docker Hive Cluster
 For now, it's just an idea.
 I'm trying to manage containers within a single swarm, using a synced volume.
 
+After container start, it will take about a minute until the webserver is up.
+Fuelphp is being installed.
+You can follow the install using 'docker logs hive'.
+
 docker create \
  -p 4567:80 \
  -v /mnt/docker-nfs/hive/shared:/shared \
