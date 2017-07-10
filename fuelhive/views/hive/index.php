@@ -4,6 +4,10 @@
 	<meta charset="utf-8">
 	<title>Docker Hive Cluster</title>
 	<?php echo Asset::css('bootstrap.css'); ?>
+	<script language="javascript" type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript">
+		//window.onload = function() { if (window.jQuery) { alert("JQuery is loaded!"); } else { alert("JQuery doesn't Work"); }}
+	</script>
 	<style>
 		#logo{
 			display: block;
@@ -36,14 +40,13 @@
 		</div>
 	</header>
 	<div class="container">
-<!--		<div class="jumbotron">
-			<p>You have successfully installed the FuelPHP Framework.</p>
-			<p><a class="btn btn-primary btn-lg" href="http://docs.fuelphp.com">Read the Docs</a></p> 
-		</div> -->
 		<div class="row">
 			<div class="col-md-4">
 				<h3>Swarm Managers</h3>
-				<p></p>
+				<p><? foreach( $managers as $manager ) {
+						echo "$manager\n";
+					}
+					?></p>
 			</div>
 			<div class="col-md-4">
 				<h3>Worker nodes</h3>
