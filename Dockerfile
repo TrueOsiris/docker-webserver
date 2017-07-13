@@ -37,7 +37,7 @@ RUN apt-get update \
  
 # copy base config files
 # these will be moved to the volumes using the startup script
-ADD fuelhive /tmp/fuelhive
+#ADD fuelhive /tmp/fuelhive
 
 ### startup scripts ###
 
