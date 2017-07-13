@@ -15,6 +15,7 @@ else
            echo "<? header('Location: /test.php'); ?>" > /synced/www/index.php
            #cp -TRv /tmp/fuelhive/ /synced/www/fuel/app/
            cp /usr/share/javascript/jquery/jquery.min.js /synced/www/
+           cp -TRv /tmp/www/ /synced/www/
         fi
         if [ ! -d /synced/www/workers ]; then
            mkdir -p /synced/www/workers
