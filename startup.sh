@@ -12,14 +12,9 @@ else
         
         if [ ! -d /synced/www ]; then
            mkdir -p /synced/www
-           #git clone git://github.com/fuel/fuel.git /synced/www/
-           #cd /synced/www 
-           #composer install --prefer-dist
-           #composer install --prefer-dist
-           echo "<? header('Location: /public/'); ?>" > /synced/www/index.php
-           #sed -i 's/welcome\/index/hive\/index/' /synced/www/fuel/app/config/routes.php
+           echo "<? header('Location: /test.php'); ?>" > /synced/www/index.php
            #cp -TRv /tmp/fuelhive/ /synced/www/fuel/app/
-           cp /usr/share/javascript/jquery/jquery.min.js /synced/www/public/
+           cp /usr/share/javascript/jquery/jquery.min.js /synced/www/
         fi
         if [ ! -d /synced/www/workers ]; then
            mkdir -p /synced/www/workers
