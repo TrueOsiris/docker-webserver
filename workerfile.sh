@@ -16,7 +16,7 @@ function gen_workerfile {
   for f in /synced/www/managers/*.json
   do
     partofswarm=false
-    nodes=$(cat $f | jq -r '.[].manager')
+    nodes=$(cat $f | jq -r '.[].node')
     for node in $nodes
     do
       if [ "$HOST_HOSTNAME" = "$node" ]; then
