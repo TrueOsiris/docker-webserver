@@ -1,6 +1,8 @@
 #!/bin/bash
-# this will create a workerfile for each node
-workerfile=/synced/www/workers/$(echo $HOST_HOSTNAME)
+
+### this will create a workerfile for each node in each swarm, based on the hostname, refreshing every 5 seconds.
+
+workerfile=/synced/www/workers/$(echo $HOST_HOSTNAME).json
 function reachnode {
   pingtest=$(ping -w 2 -c 1 $1 2>&1)
   pingtest=$( [[ $pingtest =~ bytes\ from\ ([a-z0-9]*)\.[a-z]*\ \(.* ]] && echo ${BASH_REMATCH[1]} )
@@ -11,7 +13,7 @@ function reachnode {
   fi
 }
 function gen_workerfile {
-  for f in /synced/www/managers/*
+  for f in /synced/www/managers/*.json
   do
     partofswarm=false
     nodes=$(cat $f | jq -r '.[].manager')
@@ -23,7 +25,6 @@ function gen_workerfile {
     done
     if [ $partofswarm = true ]; then
       echo "[" > $workerfile
-      #for node in $(<$f)
       for node in $nodes
       do
         echo "{ \"node\":\"$node\"," >> $workerfile
@@ -33,7 +34,7 @@ function gen_workerfile {
           reachnode $node
         fi
       done
-      #sed -i '$ s/.$//' $workerfile
+      # strip that last comma from the workerfile string
       echo $(awk '{a[NR]=$0} END {for (i=1;i<NR;i++) print a[i];sub(/.$/,"",a[NR]);print a[NR]}' $workerfile) "]" > $workerfile
     fi
   done
