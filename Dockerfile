@@ -25,6 +25,7 @@ RUN apt-get update \
                        php-mcrypt \
                        php7.0-gmp \
                        libjs-jquery \
+                       php7.0-mysql \
  && apt-get -f -y install \
  && add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
  && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7EA0A9C3F273FCD8 \
