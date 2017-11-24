@@ -1,5 +1,5 @@
 # Hive Docker manager using shared, synced volume
-FROM quantumobject/docker-baseimage:latest
+FROM trueosiris/docker-baseimage:latest
 MAINTAINER Tim Chaubet "tim@chaubet.be"
 
 ARG DEBIAN_FRONTEND=noninteractive
