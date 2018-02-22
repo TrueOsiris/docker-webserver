@@ -23,8 +23,6 @@ ADD www /tmp/www
 
 ### startup scripts ###
 
-#Pre-config scrip that maybe need to be run one time only when the container run the first time .. using a flag to don't 
-#run it again ... use for conf for service ... when run the first time ...
 RUN mkdir -p /etc/my_init.d
 COPY startup.sh /etc/my_init.d/startup.sh
 RUN chmod +x /etc/my_init.d/startup.sh
@@ -45,7 +43,6 @@ VOLUME ["/config", "/www"]
 
 COPY apache2.conf /etc/apache2/apache2.conf
 
-# Exposing http port
 EXPOSE 80
 
 CMD ["/sbin/my_init"]
