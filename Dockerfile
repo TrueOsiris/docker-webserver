@@ -3,8 +3,8 @@ FROM trueosiris/docker-baseimage:latest
 MAINTAINER Tim Chaubet "tim@chaubet.be"
 
 ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get update \
- && apt-get upgrade -y 
+RUN apt-get update 
+RUN apt-get upgrade -y 
 RUN apt-get install -y net-tools \
  && apt-get autoclean -y \
  && apt-get autoremove -y \
