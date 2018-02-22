@@ -7,30 +7,12 @@ RUN apt-get update \
  && apt-get upgrade -y \
  && apt-get install -y net-tools \
                        iputils-ping \
-                       iptables \
-                       bridge-utils \
-                       vim \
-                       libltdl7 \
-                       dnsutils \
-                       software-properties-common \
-                       python-software-properties \
-                       jq \
                        apache2 \
                        php7.0 \
                        libapache2-mod-php7.0 \
-                       php7.0-mbstring \
-                       zip \
-                       composer \
-                       libsodium18 \
-                       php-mcrypt \
-                       php7.0-gmp \
-                       libjs-jquery \
                        php7.0-mysql \
  && apt-get -f -y install \
- && add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" \
- && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7EA0A9C3F273FCD8 \
  && apt-get update \
- && apt-get install -y --allow-unauthenticated docker-ce \
  && apt-get autoclean -y \
  && apt-get autoremove -y \
  && rm -rf /var/lib/apt/lists/* \
@@ -53,12 +35,6 @@ RUN mkdir -p /etc/service/nodefile /var/log/nodefile ; sync
 COPY nodefile.sh /etc/service/nodefile/run
 RUN chmod +x /etc/service/nodefile/run \
     && cp /var/log/cron/config /var/log/nodefile/ 
-    
-# add workerfile daemon to runit
-RUN mkdir -p /etc/service/workerfile /var/log/workerfile ; sync
-COPY workerfile.sh /etc/service/workerfile/run
-RUN chmod +x /etc/service/workerfile/run \
-    && cp /var/log/cron/config /var/log/workerfile/ 
     
 # add apache2 deamon to runit
 RUN mkdir -p /etc/service/apache2  /var/log/apache2 ; sync 
