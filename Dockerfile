@@ -4,7 +4,7 @@ MAINTAINER Tim Chaubet "tim@chaubet.be"
 
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update 
-RUN apt-get upgrade -y 
+RUN apt-get dist-upgrade -y 
 RUN apt-get install -y net-tools \
                        libapache2-mod-php7.1 \
                        iputils-ping \
