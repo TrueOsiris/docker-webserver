@@ -27,3 +27,6 @@ else
         date >> /config/$(echo $initfile)
 fi
 
+# Enabling PHP mod rewrite
+/usr/sbin/a2enmod rewrite && /etc/init.d/apache2 restart
+        
