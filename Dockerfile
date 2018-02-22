@@ -11,8 +11,6 @@ RUN apt-get update \
                        php7.0 \
                        libapache2-mod-php7.0 \
                        php7.0-mysql \
- && apt-get -f -y install \
- && apt-get update \
  && apt-get autoclean -y \
  && apt-get autoremove -y \
  && rm -rf /var/lib/apt/lists/* \
