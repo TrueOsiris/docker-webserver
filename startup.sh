@@ -2,7 +2,7 @@
 
 set -e
 initfile=$(echo $HOST_HOSTNAME)\.initialised
-if [ -f /synced/$(echo $initfile) ]; then
+if [ -f /config/$(echo $initfile) ]; then
         echo 'initial configuration done.'
 else    
         ### run once at container start IF no initialization file.
@@ -10,19 +10,12 @@ else
         ### will be reset to it's default state, unless the www
         ### folder is maintained.
         
-        if [ ! -d /synced/www ]; then
-           mkdir -p /synced/www
-           echo "<? header('Location: /test.php'); ?>" > /synced/www/index.php
-           #cp -TRv /tmp/fuelhive/ /synced/www/fuel/app/
-           cp /usr/share/javascript/jquery/jquery.min.js /synced/www/
-           cp -TRv /tmp/www/ /synced/www/
+        if [ ! -d /www ]; then
+           mkdir -p /www
+           echo "<? header('Location: /test.php'); ?>" > /www/index.php
+           cp /usr/share/javascript/jquery/jquery.min.js /www/
+           cp -TRv /tmp/www/ /www/
         fi
-        if [ ! -d /synced/www/workers ]; then
-           mkdir -p /synced/www/workers
-        fi
-        if [ ! -d /synced/www/managers ]; then
-           mkdir -p /synced/www/managers
-        fi
-        echo -e "Do not remove this file.\nIf you do, container will be fully reset on next start." > /synced/$(echo $initfile)
-        date >> /synced/$(echo $initfile)
+        echo -e "Do not remove this file.\nIf you do, container will be fully reset on next start." > /config/$(echo $initfile)
+        date >> /config/$(echo $initfile)
 fi
