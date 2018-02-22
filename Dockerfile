@@ -9,13 +9,13 @@ RUN apt-get update \
                        iputils-ping \
                        apache2 \
                        php7.0 \
-                       libapache2-mod-php7.0 \
                        php7.0-mysql \
  && apt-get autoclean -y \
  && apt-get autoremove -y \
  && rm -rf /var/lib/apt/lists/* \
  && rm -rf /tmp/* /var/tmp/* 
- 
+#                        libapache2-mod-php7.0 \
+
 # copy base config files
 # these will be moved to the volumes using the startup script
 ADD www /tmp/www
