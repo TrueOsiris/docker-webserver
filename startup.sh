@@ -10,8 +10,7 @@ else
         ### will be reset to it's default state, unless the www
         ### folder is maintained.
         
-        if [ ! -d /www ]; then
-           mkdir -p /www
+        if [ ! -d /www/spotweb ]; then
            echo "<? header('Location: /test.php'); ?>" > /www/index.php
            cp /usr/share/javascript/jquery/jquery.min.js /www/
            cp -TRv /tmp/www/ /www/
