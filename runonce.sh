@@ -4,8 +4,8 @@
 
 # apache2 & php7
 a2enmod php7.0 rewrite
-chown -R www-data:www-data /synced/www /var/log/apache2
-sed -i 's/DocumentRoot \/var\/www\/html/DocumentRoot \/synced\/www\//' /etc/apache2/sites-enabled/000*.conf
+chown -R www-data:www-data /www /var/log/apache2
+sed -i 's/DocumentRoot \/var\/www\/html/DocumentRoot \/www\//' /etc/apache2/sites-enabled/000*.conf
 sed -i "s/short_open_tag = Off/short_open_tag = On/" /etc/php/7.0/apache2/php.ini
 sed -i "s/error_reporting = .*$/error_reporting = E_ERROR | E_WARNING | E_PARSE/" /etc/php/7.0/apache2/php.ini
 sed -i 's/\;extension=php_mysqli.dll/extension=php_mysqli.dll/' /etc/php/7.0/apache2/php.ini
