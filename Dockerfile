@@ -12,6 +12,8 @@ RUN apt-get install -y net-tools \
                        php7.0 \
                        php7.0-mysql \
                        git \
+                       jq \
+                       libjs-jquery \
  && apt-get autoremove -y \
  && apt-get autoclean -y \
  && rm -rf /var/lib/apt/lists/* \
