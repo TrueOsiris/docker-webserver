@@ -48,7 +48,7 @@ RUN chmod +x /sbin/runonce; sync \
     && /bin/bash -c /sbin/runonce \
     && rm /sbin/runonce
 
-VOLUME ["/synced", "/var/run/docker.sock"]
+VOLUME ["/config", "/www"]
 
 COPY apache2.conf /etc/apache2/apache2.conf
 
