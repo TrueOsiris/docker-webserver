@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -e
-initfile=$(echo $HOST_HOSTNAME)\.initialised
+initfile=$(echo $HOST_HOSTNAME)\webserver.initialised
 if [ -f /config/$(echo $initfile) ]; then
         echo 'initial configuration done.'
 else    
@@ -16,8 +16,6 @@ else
         if [ ! -f /www/index.php ]; then
            echo "<? echo "php7.0 is working"; ?>" > /www/index.php
            cp /usr/share/javascript/jquery/jquery.min.js /www/
-           #cp -TRv /tmp/www/ /www/
-           #git clone https://github.com/TrueOsiris/spotweb.git /www/spotweb
         fi
         echo -e "Do not remove this file.\nIf you do, container will be fully reset on next start." > /config/$(echo $initfile)
         date >> /config/$(echo $initfile)
