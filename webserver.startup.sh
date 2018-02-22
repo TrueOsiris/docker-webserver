@@ -14,7 +14,7 @@ else
         ln -s /config/php.ini /etc/php/7.0/apache2/php.ini
         
         if [ ! -f /www/index.php ]; then
-           echo "<? echo "php7.0 is working"; ?>" > /www/index.php
+           echo "<? echo 'php7.0 is working'; ?>" > /www/index.php
            cp /usr/share/javascript/jquery/jquery.min.js /www/
         fi
         echo -e "Do not remove this file.\nIf you do, container will be fully reset on next start." > /config/$(echo $initfile)
