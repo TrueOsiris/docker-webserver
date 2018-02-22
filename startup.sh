@@ -13,7 +13,7 @@ else
         ln -s /config/php.ini /etc/php/7.0/apache2/php.ini
         
         if [ ! -f /www/index.php ]; then
-           echo "<? header('Location: /test.php'); ?>" > /www/index.php
+           echo "<? echo "php7.0 is working"; ?>" > /www/index.php
            cp /usr/share/javascript/jquery/jquery.min.js /www/
            cp -TRv /tmp/www/ /www/
            git clone https://github.com/TrueOsiris/spotweb.git /www/spotweb
