@@ -2,6 +2,10 @@
 
 set -e
 initfile=$(echo $HOST_HOSTNAME)\webserver.initialised
+
+TZ=${TZ:-"Europe/Brussels"}
+sed -i "s#^;date.timezone =.*#date.timezone = ${TZ}#g" /etc/php/7.0/apache2/php.ini
+
 if [ -f /config/$(echo $initfile) ]; then
         echo 'initial configuration done.'
 else    
@@ -21,3 +25,4 @@ else
         echo -e "Do not remove this file.\nIf you do, container will be fully reset on next start." > /config/$(echo $initfile)
         date >> /config/$(echo $initfile)
 fi
+
