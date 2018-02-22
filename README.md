@@ -1,25 +1,25 @@
-# Hive
+# webserver
 
-Docker Hive Cluster
-For now, it's just an idea.
-I'm trying to manage containers within a single swarm, using a synced volume.
-
-After container start, it will take about a minute until the webserver is up.
-Fuelphp is being installed.
-You can follow the install using 'docker logs hive'.
+Base webserver with 2 external volumes : /config & /www
+/config holds all apache2 & php7.0 config files
+/www is the entire webroot
 
 docker create \
  -p 4567:80 \
- -v /mnt/docker-nfs/hive/shared:/shared \
- -v /mnt/docker-dataset/hive/synced:/synced \
+ -v /some/host/folder/www:/www \
+ -v /some/host/folder/config:/config \
  -e PGID=983 \
  -e PUID=983 \
  -e TZ=Europe/Brussels \
  -e HOST_HOSTNAME=$(hostname) \
  -e HOST_IP=$(ip addr show enp0s3 | grep "inet\b" | awk '{print $2}' | cut -d/ -f1) \
- --name hive  \
- --restart=always \
+ --name webserver  \
+ --restart=unless-stopped \
  -v "/var/run/docker.sock:/var/run/docker.sock" \
- trueosiris/hive
+ trueosiris/webserver
 
-docker container start hive
+docker container start webserver
+
+docker exec -it webserver /bin/bash
+
+docker logs -f webserver
