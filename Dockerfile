@@ -6,16 +6,16 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
  && apt-get upgrade -y \
  && apt-get install -y net-tools \
-                       iputils-ping \
-                       apache2 \
-                       php7.0 \
-                       php7.0-mysql \
-                       git \
  && apt-get autoclean -y \
  && apt-get autoremove -y \
  && rm -rf /var/lib/apt/lists/* \
  && rm -rf /tmp/* /var/tmp/* 
 #                        libapache2-mod-php7.0 \
+#                       iputils-ping \
+#                       apache2 \
+#                       php7.0 \
+#                       php7.0-mysql \
+#                       git \
 
 # copy base config files
 # these will be moved to the volumes using the startup script
