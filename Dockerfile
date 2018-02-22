@@ -6,6 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update 
 RUN apt-get dist-upgrade -y 
 RUN apt-get install -y net-tools \
+                       vim \
                        libapache2-mod-php7.0 \
                        iputils-ping \
                        apache2 \
