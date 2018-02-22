@@ -20,7 +20,7 @@ RUN apt-get install -y net-tools \
 
 # copy base config files
 # these will be moved to the volumes using the startup script
-ADD www /tmp/www
+# ADD www /tmp/www
 
 ### startup scripts ###
 
