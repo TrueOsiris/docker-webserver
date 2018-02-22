@@ -1,4 +1,4 @@
-# Hive Docker manager using shared, synced volume
+# Docker webserver with external www volume
 FROM quantumobject/docker-baseimage:latest
 MAINTAINER Tim Chaubet "tim@chaubet.be"
 
