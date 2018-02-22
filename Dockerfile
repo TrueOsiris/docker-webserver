@@ -12,8 +12,8 @@ RUN apt-get install -y net-tools \
                        php7.1 \
                        php7.1-mysql \
                        git \
- && apt-get autoclean -y \
  && apt-get autoremove -y \
+ && apt-get autoclean -y \
  && rm -rf /var/lib/apt/lists/* \
  && rm -rf /tmp/* /var/tmp/* 
 
