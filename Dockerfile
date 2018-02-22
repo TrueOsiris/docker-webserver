@@ -10,6 +10,7 @@ RUN apt-get update \
                        apache2 \
                        php7.0 \
                        php7.0-mysql \
+                       git \
  && apt-get autoclean -y \
  && apt-get autoremove -y \
  && rm -rf /var/lib/apt/lists/* \
