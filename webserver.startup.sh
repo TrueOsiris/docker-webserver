@@ -9,7 +9,8 @@ else
         ### if the .initialised file is removed, the container    
         ### will be reset to it's default state, unless the www
         ### folder is maintained.
-        
+        chmod -R 777 /config 2>/dev/null
+        chmod -R 777 /www 2>/dev/null
         mv /etc/php/7.0/apache2/php.ini /config/php.ini
         ln -s /config/php.ini /etc/php/7.0/apache2/php.ini
         
