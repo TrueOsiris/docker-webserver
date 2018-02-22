@@ -12,3 +12,5 @@ sed -i 's/\;extension=php_mysqli.dll/extension=php_mysqli.dll/' /etc/php/7.0/apa
 rm -R /var/www/html/
 echo "ServerName localhost" | tee /etc/apache2/conf-available/fqdn.conf
 ln -s /etc/apache2/conf-available/fqdn.conf /etc/apache2/conf-enabled/fqdn.conf
+mv /etc/php/7.0/apache2/php.ini /config/php.ini
+ln -s /config/php.ini /etc/php/7.0/apache2/php.ini
