@@ -6,11 +6,11 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update 
 RUN apt-get dist-upgrade -y 
 RUN apt-get install -y net-tools \
-                       libapache2-mod-php7.1 \
+                       libapache2-mod-php7.0 \
                        iputils-ping \
                        apache2 \
-                       php7.1 \
-                       php7.1-mysql \
+                       php7.0 \
+                       php7.0-mysql \
                        git \
  && apt-get autoremove -y \
  && apt-get autoclean -y \
