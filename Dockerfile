@@ -27,8 +27,8 @@ RUN apt-get install -y net-tools \
 ### startup scripts ###
 
 RUN mkdir -p /etc/my_init.d
-COPY startup.sh /etc/my_init.d/startup.sh
-RUN chmod +x /etc/my_init.d/startup.sh
+COPY webserver.startup.sh /etc/my_init.d/webserver.startup.sh
+RUN chmod +x /etc/my_init.d/webserver.startup.sh
     
 # add apache2 deamon to runit
 RUN mkdir -p /etc/service/apache2  /var/log/apache2 ; sync 
