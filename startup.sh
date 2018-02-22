@@ -16,7 +16,7 @@ else
         if [ ! -f /www/index.php ]; then
            echo "<? echo "php7.0 is working"; ?>" > /www/index.php
            cp /usr/share/javascript/jquery/jquery.min.js /www/
-           cp -TRv /tmp/www/ /www/
+           #cp -TRv /tmp/www/ /www/
            git clone https://github.com/TrueOsiris/spotweb.git /www/spotweb
         fi
         echo -e "Do not remove this file.\nIf you do, container will be fully reset on next start." > /config/$(echo $initfile)
