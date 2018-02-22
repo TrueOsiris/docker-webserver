@@ -19,13 +19,6 @@ RUN apt-get install -y net-tools \
  && rm -rf /var/lib/apt/lists/* \
  && rm -rf /tmp/* /var/tmp/* 
 
-
-# copy base config files
-# these will be moved to the volumes using the startup script
-# ADD www /tmp/www
-
-### startup scripts ###
-
 RUN mkdir -p /etc/my_init.d
 COPY webserver.startup.sh /etc/my_init.d/0.webserver.startup.sh
 RUN chmod +x /etc/my_init.d/0.webserver.startup.sh
