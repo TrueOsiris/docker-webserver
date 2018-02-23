@@ -15,6 +15,7 @@ RUN apt-get install -y net-tools \
                        git \
                        jq \
                        libjs-jquery \
+                       php7.0-zip \
  && apt-get autoremove -y \
  && apt-get autoclean -y \
  && rm -rf /var/lib/apt/lists/* \
