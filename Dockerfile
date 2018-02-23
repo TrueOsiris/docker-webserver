@@ -18,6 +18,7 @@ RUN apt-get install -y net-tools \
                        php7.0-zip \
                        php7.0-xml \
                        php7.0-mbstring \
+                       php7.0-curl \
  && apt-get autoremove -y \
  && apt-get autoclean -y \
  && rm -rf /var/lib/apt/lists/* \
