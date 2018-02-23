@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -e
-initfile=$(echo $HOST_HOSTNAME)\webserver.initialised
+initfile=webserver.initialised
 
 TZ=${TZ:-"Europe/Brussels"}
 sed -i "s#^;date.timezone =.*#date.timezone = ${TZ}#g" /etc/php/7.0/apache2/php.ini
