@@ -18,7 +18,8 @@ else
         mv /etc/php/7.0/apache2/php.ini /config/php.ini
         ######  rm /etc/php/7.0/apache2/php.ini 2>&1
         ln -s /config/php.ini /etc/php/7.0/apache2/php.ini
-        
+        # Enabling PHP mod rewrite
+        /usr/sbin/a2enmod rewrite 2>&1
         if [ ! -f /www/index.php ]; then
            echo "<? echo 'php7.0 is working'; ?>" > /www/index.php
            cp /usr/share/javascript/jquery/jquery.min.js /www/
@@ -27,6 +28,5 @@ else
         date >> /config/$(echo $initfile)
 fi
 
-# Enabling PHP mod rewrite
-/usr/sbin/a2enmod rewrite && /etc/init.d/apache2 restart
+
         
