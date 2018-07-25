@@ -1,4 +1,5 @@
 # webserver
+[![Docker Pulls](https://img.shields.io/docker/pulls/trueosiris/webserver.svg)](https://hub.docker.com/r/trueosiris/webserver/) [![Docker Stars](https://img.shields.io/docker/stars/trueosiris/webserver.svg)](https://hub.docker.com/r/trueosiris/webserver/) [![Docker Automated buil](https://img.shields.io/docker/automated/trueosiris/webserver.svg)](https://hub.docker.com/r/trueosiris/webserver/) [![Docker Build Statu](https://img.shields.io/docker/build/trueosiris/webserver.svg)](https://hub.docker.com/r/trueosiris/webserver/) ![GitHub last commit](https://img.shields.io/github/last-commit/trueosiris/docker-webserver.svg)
 
 Base webserver with 2 external volumes : /config & /www \
 /config holds all apache2 & php7.0 config files \
