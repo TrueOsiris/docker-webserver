@@ -22,7 +22,7 @@ else
         /usr/sbin/a2enmod rewrite 2>&1
         if [ ! -f /www/index.php ]; then
            #echo "<? echo 'php7.0 is working'; ?>" > /www/index.php
-           cat >/www/index.php <<EOL
+           cat >/www/index.php <<'EOL'
 <!DOCTYPE html>
 <html>
 <head>
