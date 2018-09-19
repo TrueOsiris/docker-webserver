@@ -21,7 +21,33 @@ else
         # Enabling PHP mod rewrite
         /usr/sbin/a2enmod rewrite 2>&1
         if [ ! -f /www/index.php ]; then
-           echo "<? echo 'php7.0 is working'; ?>" > /www/index.php
+           #echo "<? echo 'php7.0 is working'; ?>" > /www/index.php
+           cat >/www/index.php <<EOL
+<!DOCTYPE html>
+<html>
+<head>
+    <title>tim.chaubet.be</title>
+	<script src="jquery.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$("#mydiv").show();
+		});
+	</script>
+	<style>
+		div {
+			/* width: 40%; */
+			padding-right: 10px;
+			display: inline-block;
+			color: black;
+		}
+	</style>
+</head>
+<body>
+ <div><? echo 'php7.0 is working'; ?></div><div id='mydiv' hidden >JQuery is functional</div>	
+	</script>
+</body>
+</html>
+EOL
            cp /usr/share/javascript/jquery/jquery.min.js /www/
         fi
         echo -e "Do not remove this file.\nIf you do, container will be fully reset on next start." > /config/$(echo $initfile)
