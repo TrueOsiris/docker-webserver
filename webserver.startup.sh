@@ -44,7 +44,6 @@ else
 </head>
 <body>
  <div><? echo "php7.0 is working"; ?></div><div id="mydiv" hidden >JQuery is functional</div>	
-	</script>
 </body>
 </html>
 EOL
