@@ -31,6 +31,9 @@ else
 	<script>
 		$(document).ready(function(){
 			$("#mydiv").show();
+			$("#mydiv").click(function(){
+				$(this).hide();
+			});
 		});
 	</script>
 	<style>
