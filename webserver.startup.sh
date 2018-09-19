@@ -26,7 +26,7 @@ else
 <!DOCTYPE html>
 <html>
 <head>
-    <title>tim.chaubet.be</title>
+    <title>replaceme</title>
 	<script src="jquery.min.js"></script>
 	<script>
 		$(document).ready(function(){
