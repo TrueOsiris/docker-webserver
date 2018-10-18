@@ -21,6 +21,7 @@ RUN apt-get install -y net-tools \
                        php7.0-curl \
                        php7.0-gd \
                        php-xmlrpc \
+ && phpenmod xmlrpc \
  && apt-get autoremove -y \
  && apt-get autoclean -y \
  && rm -rf /var/lib/apt/lists/* \
