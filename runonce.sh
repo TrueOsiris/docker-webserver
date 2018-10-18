@@ -14,5 +14,7 @@ echo "ServerName localhost" | tee /etc/apache2/conf-available/fqdn.conf
 ln -s /etc/apache2/conf-available/fqdn.conf /etc/apache2/conf-enabled/fqdn.conf
 sed -i 's/\;extension=php_curl.dll/extension=php_curl.dll/' /etc/php/7.0/apache2/php.ini
 sed -i 's/\;extension=php_mbstring.dll/extension=php_mbstring.dll/' /etc/php/7.0/apache2/php.ini
+## /usr/lib/php/20151012/xmlrpc.so
 sed -i 's/\;extension=php_xmlrpc.dll/extension=php_xmlrpc.dll/' /etc/php/7.0/apache2/php.ini
+
 
