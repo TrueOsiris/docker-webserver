@@ -3,8 +3,15 @@
 set -e
 initfile=webserver.initialised
 
-TZ=${TZ:-"Europe/Brussels"}
-sed -i "s#^;date.timezone =.*#date.timezone = ${TZ}#g" /etc/php/7.0/apache2/php.ini
+if [ -f /config/php.ini ]; then
+	TZ=${TZ:-"Europe/Brussels"}
+	sed -i "s#^;date.timezone =.*#date.timezone = ${TZ}#g" /etc/php/7.0/apache2/php.ini
+        mv /etc/php/7.0/apache2/php.ini /config/php.ini
+        ######  rm /etc/php/7.0/apache2/php.ini 2>&1
+        ln -s /config/php.ini /etc/php/7.0/apache2/php.ini
+        # Enabling PHP mod rewrite
+        /usr/sbin/a2enmod rewrite 2>&1
+fi
 
 if [ -f /config/$(echo $initfile) ]; then
         echo 'initial configuration done.'
@@ -15,11 +22,6 @@ else
         ### folder is maintained.
         chmod -R 777 /config 2>/dev/null
         chmod -R 777 /www 2>/dev/null
-        mv /etc/php/7.0/apache2/php.ini /config/php.ini
-        ######  rm /etc/php/7.0/apache2/php.ini 2>&1
-        ln -s /config/php.ini /etc/php/7.0/apache2/php.ini
-        # Enabling PHP mod rewrite
-        /usr/sbin/a2enmod rewrite 2>&1
         if [ ! -f /www/index.php ]; then
            #echo "<? echo 'php7.0 is working'; ?>" > /www/index.php
            cat >/www/index.php <<'EOL'
