@@ -6,11 +6,11 @@ initfile=webserver.initialised
 if [ -f /config/php.ini ]; then
 	TZ=${TZ:-"Europe/Brussels"}
 	sed -i "s#^;date.timezone =.*#date.timezone = ${TZ}#g" /etc/php/7.0/apache2/php.ini 2>&1
-        mv /etc/php/7.0/apache2/php.ini /config/php.ini 2>&1
-        rm /etc/php/7.0/apache2/php.ini 2>&1
-        ln -s /config/php.ini /etc/php/7.0/apache2/php.ini 2>&1
-        # Enabling PHP mod rewrite
-        /usr/sbin/a2enmod rewrite 2>&1
+	mv /etc/php/7.0/apache2/php.ini /config/php.ini 2>&1
+	rm /etc/php/7.0/apache2/php.ini 2>&1
+	ln -s /config/php.ini /etc/php/7.0/apache2/php.ini 2>&1
+	# Enabling PHP mod rewrite
+	/usr/sbin/a2enmod rewrite 2>&1
 fi
 
 if [ -f /config/$(echo $initfile) ]; then
