@@ -1,5 +1,5 @@
 # Docker webserver with external www volume
-FROM quantumobject/docker-baseimage:latest
+FROM quantumobject/docker-baseimage:18.04
 MAINTAINER Tim Chaubet "tim@chaubet.be"
 
 ARG DEBIAN_FRONTEND=noninteractive
