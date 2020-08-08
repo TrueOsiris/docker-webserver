@@ -6,13 +6,12 @@ initfile=webserver.initialised
 if [ -f /config/php.ini ]; then
 	echo "Setting timezone TZ to default Europe/Brussels or to the docker parameter TZ"
 	TZ=${TZ:-"Europe/Brussels"}
-	echo "Replacing timezone in /etc/php/7.0/apache2/php.ini ..."
-	sed -i "s#^;date.timezone =.*#date.timezone = ${TZ}#g" /etc/php/7.0/apache2/php.ini 2>&1
-	echo "Moving /etc/php/7.0/apache2/php.ini to /config/php.ini ..."
-	mv /etc/php/7.0/apache2/php.ini /config/php.ini 2>&1
-	# rm /etc/php/7.0/apache2/php.ini 2>&1
-	echo "Creating a symlink to source /config/php.ini at target /etc/php/7.0/apache2/php.ini ..."
-	ln -s /config/php.ini /etc/php/7.0/apache2/php.ini 2>&1
+	echo "Replacing timezone in /etc/php/7.4/apache2/php.ini ..."
+	sed -i "s#^;date.timezone =.*#date.timezone = ${TZ}#g" /etc/php/7.4/apache2/php.ini 2>&1
+	echo "Moving /etc/php/7.4/apache2/php.ini to /config/php.ini ..."
+	mv /etc/php/7.4/apache2/php.ini /config/php.ini 2>&1
+	echo "Creating a symlink to source /config/php.ini at target /etc/php/7.4/apache2/php.ini ..."
+	ln -s /config/php.ini /etc/php/7.4/apache2/php.ini 2>&1
 	echo "Enabling PHP mod rewrite ..."
 	/usr/sbin/a2enmod rewrite 2>&1
 fi
@@ -27,7 +26,6 @@ else
         chmod -R 777 /config 2>&1
         chmod -R 777 /www 2>&1
         if [ ! -f /www/index.php ]; then
-           #echo "<? echo 'php7.0 is working'; ?>" > /www/index.php
            cat >/www/index.php <<'EOL'
 <!DOCTYPE html>
 <html>
@@ -52,7 +50,7 @@ else
 	</style>
 </head>
 <body>
- <div><? echo "php7.0 is working"; ?></div><div id="mydiv" hidden >JQuery is functional</div>	
+ <div><? echo "php7.4 is working"; ?></div><div id="mydiv" hidden >JQuery is functional</div>	
 </body>
 </html>
 EOL
