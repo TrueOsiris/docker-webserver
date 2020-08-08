@@ -1,5 +1,5 @@
 # Docker webserver with external www volume
-FROM quantumobject/docker-baseimage:18.04
+FROM trueosiris/baseimage:latest
 MAINTAINER Tim Chaubet "tim@chaubet.be"
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -7,20 +7,20 @@ RUN apt-get update
 RUN apt-get dist-upgrade -y 
 RUN apt-get install -y net-tools \
                        vim \
-                       libapache2-mod-php7.0 \
+                       libapache2-mod-php \
                        iputils-ping \
                        apache2 \
-                       php7.0 \
-                       php7.0-mysql \
+                       php7.4 \
+                       php7.4-mysql \
                        git \
                        jq \
                        libjs-jquery \
-                       php7.0-zip \
-                       php7.0-xml \
-                       php7.0-mbstring \
-                       php7.0-curl \
-                       php7.0-gd \
-                       php7.0-xmlrpc \
+                       php7.4-zip \
+                       php7.4-xml \
+                       php7.4-mbstring \
+                       php7.4-curl \
+                       php7.4-gd \
+                       php7.4-xmlrpc \
  && phpenmod xmlrpc \
  && apt-get autoremove -y \
  && apt-get autoclean -y \
