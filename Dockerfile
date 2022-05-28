@@ -1,5 +1,5 @@
 # Docker webserver with external www volume
-FROM trueosiris/baseimage:latest
+FROM quantumobject/docker-baseimage
 MAINTAINER Tim Chaubet "tim@chaubet.be"
 
 ARG DEBIAN_FRONTEND=noninteractive
