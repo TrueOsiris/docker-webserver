@@ -7,7 +7,7 @@ if [ -f /config/php.ini ]; then
 	echo "Setting timezone TZ to default Europe/Brussels or to the docker parameter TZ"
 	TZ=${TZ:-"Europe/Brussels"}
 	echo "Replacing timezone in /etc/php/8.2/apache2/php.ini ..."
-	sed -i "s#^;date.timezone =.*#date.timezone = ${TZ}#g" /etc/php/7.4/apache2/php.ini 2>&1
+	sed -i "s#^;date.timezone =.*#date.timezone = ${TZ}#g" /etc/php/8.2/apache2/php.ini 2>&1
 	echo "Moving /etc/php/8.2/apache2/php.ini to /config/php.ini ..."
 	mv /etc/php/8.2/apache2/php.ini /config/php.ini 2>&1
 	echo "Creating a symlink to source /config/php.ini at target /etc/php/7.4/apache2/php.ini ..."
@@ -23,15 +23,18 @@ else
         ### if the .initialised file is removed, the container    
         ### will be reset to it's default state, unless the www
         ### folder is maintained.
+	mkdir -p /www 2>&1
         chmod -R 777 /config 2>&1
         chmod -R 777 /www 2>&1
+	chown -R www-data:www-data /www 2>&1
+	chown -R www-data:www-data /config
         if [ ! -f /www/index.php ]; then
            cat >/www/index.php <<'EOL'
 <!DOCTYPE html>
 <html>
 <head>
     <title>replaceme</title>
-	<script src="jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 	<script>
 		$(document).ready(function(){
 			$("#mydiv").show();
@@ -54,7 +57,6 @@ else
 </body>
 </html>
 EOL
-           cp /usr/share/javascript/jquery/jquery.min.js /www/
         fi
         echo -e "Do not remove this file.\nIf you do, container will be fully reset on next start." > /config/$(echo $initfile)
         date >> /config/$(echo $initfile)
