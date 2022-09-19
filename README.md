@@ -12,7 +12,7 @@
 
 
 Base webserver with 2 external volumes : /config & /www \
-/config holds all apache2 & php7.0 config files \
+/config holds all apache2 & php8.2 config files \
 /www is the entire webroot \
 
 minimal:
