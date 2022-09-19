@@ -16,6 +16,6 @@ WORKDIR /www/
 VOLUME [ "/www", "/config" ]
 COPY start.sh /sbin/start.sh
 RUN chmod +x /sbin/start.sh; sync; \
- && /sbin/start.sh
+ /sbin/start.sh
 COPY apache2.conf /etc/apache2/apache2.conf
 EXPOSE 80
