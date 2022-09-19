@@ -66,4 +66,4 @@ EOL
         date >> /config/$(echo $initfile)
 fi
 service apache2 start
-tail -f /var/log/apache2/access.log
+tail -f /var/log/apache2/error.log
