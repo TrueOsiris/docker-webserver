@@ -15,6 +15,7 @@ if [ ! -f /config/php.ini ]; then
 	mkdir -p /etc/php/8.2/apache2 2>&1
 	ln -s /config/php.ini /etc/php/8.2/apache2/php.ini 2>&1
 	ln -s /config/php.ini /etc/php/php.ini 2>&1
+	ln -s /config/php.ini /usr/local/etc/php/php.ini 2>&1
 	echo "Enabling PHP mod rewrite ..."
 	/usr/sbin/a2enmod rewrite 2>&1
 fi
