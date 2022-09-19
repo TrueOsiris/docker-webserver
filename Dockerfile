@@ -6,8 +6,8 @@ RUN apt update -y && \
     apt-get install -y  apt-utils \
 			libzlcore0.13 zlib1g-dev \
 			libpng-dev \
-			libjpeg-dev
-
+			libjpeg-dev \
+			vim
 ENV APACHE_DOCUMENT_ROOT /www
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
