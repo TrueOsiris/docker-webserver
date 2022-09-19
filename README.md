@@ -15,6 +15,8 @@ Base webserver with 2 external volumes : /config & /www \
 /config holds all apache2 & php8.2 config files \
 /www is the entire webroot \
 
+[Github](https://github.com/TrueOsiris/docker-webserver) [Dockerhub](https://hub.docker.com/repository/docker/trueosiris/webserver)
+
 minimal:
 
       docker create \
