@@ -1,5 +1,15 @@
 # webserver
-[![Docker Pulls](https://img.shields.io/docker/pulls/trueosiris/webserver.svg)](https://hub.docker.com/r/trueosiris/webserver/) [![Docker Stars](https://img.shields.io/docker/stars/trueosiris/webserver.svg)](https://hub.docker.com/r/trueosiris/webserver/) [![Docker Automated buil](https://img.shields.io/docker/automated/trueosiris/webserver.svg)](https://hub.docker.com/r/trueosiris/webserver/) [![Docker Build Statu](https://img.shields.io/docker/build/trueosiris/webserver.svg)](https://hub.docker.com/r/trueosiris/webserver/) ![GitHub last commit](https://img.shields.io/github/last-commit/trueosiris/docker-webserver.svg)
+
+![Trueosiris Rules](https://img.shields.io/badge/trueosiris-rules-f08060)
+[![Docker Pulls](https://badgen.net/docker/pulls/trueosiris/webserver?icon=docker&label=pulls)](https://hub.docker.com/r/trueosiris/webserver/)
+[![Docker Stars](https://badgen.net/docker/stars/trueosiris/webserver?icon=docker&label=stars)](https://hub.docker.com/r/trueosiris/webserver/)
+[![Docker Image Size](https://badgen.net/docker/size/trueosiris/webserver?icon=docker&label=image%20size)](https://hub.docker.com/r/trueosiris/webserver/)
+![Github stars](https://badgen.net/github/stars/trueosiris/docker-webserver?icon=github&label=stars)
+![Github forks](https://badgen.net/github/forks/trueosiris/docker-webserver?icon=github&label=forks)
+![Github issues](https://img.shields.io/github/issues/TrueOsiris/docker-webserver)
+![Github last-commit](https://img.shields.io/github/last-commit/TrueOsiris/docker-webserver)
+
+
 
 Base webserver with 2 external volumes : /config & /www \
 /config holds all apache2 & php7.0 config files \
