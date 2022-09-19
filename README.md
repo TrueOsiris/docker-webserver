@@ -29,6 +29,7 @@ more options:
       -p 4567:80 \
       -v /some/host/folder/www:/www \
       -v /some/host/folder/config:/config \
+      -e APACHE_DOCUMENT_ROOT=/www \
       -e PGID=983 \
       -e PUID=983 \
       -e TZ=Europe/Brussels \
