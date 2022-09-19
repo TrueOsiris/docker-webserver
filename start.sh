@@ -65,3 +65,4 @@ EOL
         echo -e "Do not remove this file.\nIf you do, container will be fully reset on next start." > /config/$(echo $initfile)
         date >> /config/$(echo $initfile)
 fi
+service apache2 start
