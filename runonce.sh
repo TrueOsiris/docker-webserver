@@ -50,7 +50,7 @@ else
 	</style>
 </head>
 <body>
- <div><? echo "php7.4 is working"; ?></div><div id="mydiv" hidden >JQuery is functional</div>	
+ <div><? echo "PHP is working. Version: ".phpversion(); ?></div><br><br><div id="mydiv" hidden >JQuery is functional. Click me!</div>	
 </body>
 </html>
 EOL
