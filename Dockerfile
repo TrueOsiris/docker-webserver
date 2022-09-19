@@ -14,10 +14,8 @@ RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 RUN docker-php-ext-configure gd --with-jpeg=/usr/include/ && docker-php-ext-install gd
 WORKDIR /www/
 VOLUME [ "/www", "/config" ]
-COPY runonce.sh /sbin/runonce
-RUN chmod +x /sbin/runonce; sync \
-    && /bin/bash -c /sbin/runonce \
-    && rm /sbin/runonce
+COPY start.sh /sbin/start.sh
+RUN chmod +x /sbin/start.sh; sync
 COPY apache2.conf /etc/apache2/apache2.conf
 EXPOSE 80
-
+CMD ["/sbin/start.sh"]
