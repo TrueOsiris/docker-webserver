@@ -38,26 +38,28 @@ else
 <html>
 <head>
     <title>replaceme</title>
-	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-	<script>
-		$(document).ready(function(){
-			$("#mydiv").show();
-			$("#mydiv").click(function(){
-				$(this).hide();
-			});
+    <link rel="shortcut icon" href="/favicon.ico?v=2" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script>
+	$(document).ready(function(){
+		$("#mydiv").show();
+		$("#mydiv").click(function(){
+			$(this).hide();
 		});
-	</script>
-	<style>
-		div {
-			/* width: 40%; */
-			padding-right: 10px;
-			display: inline-block;
-			color: black;
-		}
-	</style>
+	});
+    </script>
+    <style>
+	div {
+		/* width: 40%; */
+		padding-right: 10px;
+		display: inline-block;
+		color: black;
+	}
+    </style>
 </head>
 <body>
- <div><? echo "PHP is working. Version: ".phpversion(); ?></div><br><br><div id="mydiv" hidden >JQuery is functional. Click me!</div>	
+ <div><? echo "PHP is working. Version: ".phpversion(); ?></div><br><br>
+ <div id="mydiv" hidden >JQuery is functional. Click me!</div>	
 </body>
 </html>
 EOL
