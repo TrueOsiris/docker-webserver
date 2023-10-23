@@ -7,10 +7,10 @@ RUN apt update -y && \
 			libzlcore0.13 zlib1g-dev \
 			libpng-dev \
 			libjpeg-dev \
-			vim && \
-    apt-get clean autoclean \
-    apt-get autoremove -y \
-    rm -rf /var/lib/apt/lists/*
+                        vim \
+ && apt-get clean autoclean \
+ && apt-get autoremove -y \
+ && rm -rf /var/lib/apt/lists/*
 ENV APACHE_DOCUMENT_ROOT /www
 RUN sed -ri -e "s!/var/www/html!$APACHE_DOCUMENT_ROOT!g" /etc/apache2/sites-available/*.conf
 RUN sed -ri -e "s!/var/www/!$APACHE_DOCUMENT_ROOT!g" /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
