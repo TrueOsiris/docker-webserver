@@ -4,7 +4,6 @@
 [![Docker Pulls](https://badgen.net/docker/pulls/trueosiris/webserver?icon=docker&label=pulls)](https://hub.docker.com/r/trueosiris/webserver/)
 [![Docker Stars](https://badgen.net/docker/stars/trueosiris/webserver?icon=docker&label=stars)](https://hub.docker.com/r/trueosiris/webserver/)
 [![Docker Image Size](https://badgen.net/docker/size/trueosiris/webserver?icon=docker&label=image%20size)](https://hub.docker.com/r/trueosiris/webserver/)
-![Github stars](https://badgen.net/github/stars/trueosiris/docker-webserver?icon=github&label=stars)
 ![Github forks](https://badgen.net/github/forks/trueosiris/docker-webserver?icon=github&label=forks)
 ![Github issues](https://img.shields.io/github/issues/TrueOsiris/docker-webserver)
 ![Github last-commit](https://img.shields.io/github/last-commit/TrueOsiris/docker-webserver)
@@ -45,7 +44,7 @@ more options:
 
 docker compose
 
-```
+```yaml
 x-volume-localtime:
   &etclocaltime
   type: 'bind'
