@@ -42,3 +42,52 @@ more options:
       -v "/var/run/docker.sock:/var/run/docker.sock" \
       trueosiris/webserver
 ```
+
+docker compose
+
+```
+x-volume-localtime:
+  &etclocaltime
+  type: 'bind'
+  source: /etc/localtime
+  target: /etc/localtime
+  read_only: true
+x-volume-webdefault-webroot:
+  &webdefaultwebroot
+  type: 'bind'
+  source: /mnt/user/docker_compose/web/default/www
+  target: /www
+  bind:
+    create_host_path: true  
+x-volume-webdefault-config:
+  &webdefaultconfig
+  type: 'bind'
+  source: /mnt/user/docker_compose/web/default/config
+  target: /config
+  bind:
+    create_host_path: true
+
+services:
+  webserver:
+    image: trueosiris/webserver
+    environment:
+      - APACHE_DOCUMENT_ROOT=/www 
+      - PGID=1000 
+      - PUID=1000 
+      - TZ=Europe/Brussels 
+      - HOST_HOSTNAME=$(hostname) 
+      - HOST_IP=$(ip addr show enp0s3 | grep "inet\b" | awk '{print $2}' | cut -d/ -f1) 
+    restart: unless-stopped
+    network_mode: bridge     
+    volumes: 
+      - <<: *etclocaltime
+      - <<: *webdefaultwebroot 
+      - <<: *webdefaultconfig 
+    ports:
+      - 8031:80  
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 60s
+      timeout: 10s
+      retries: 5
+```
