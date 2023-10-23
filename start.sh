@@ -39,7 +39,7 @@ else
 <head>
     <title>replaceme</title>
     <link rel="shortcut icon" href="/favicon.ico?v=2" type="image/x-icon">
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script>
 	$(document).ready(function(){
 		$("#mydiv").show();
