@@ -18,15 +18,15 @@ Base webserver with 2 external volumes : /config & /www \
 [Github](https://github.com/TrueOsiris/docker-webserver) [Dockerhub](https://hub.docker.com/repository/docker/trueosiris/webserver)
 
 minimal:
-
+```
       docker create \
       -p 4567:80 \
       -v /some/host/folder/www:/www \
       -v /some/host/folder/config:/config \
       trueosiris/webserver
-
+```
 more options:
-
+```
       docker create \
       -p 4567:80 \
       -v /some/host/folder/www:/www \
@@ -41,9 +41,4 @@ more options:
       --restart=unless-stopped \
       -v "/var/run/docker.sock:/var/run/docker.sock" \
       trueosiris/webserver
-
-docker container start webserver
-
-docker exec -it webserver /bin/bash
-
-docker logs -f webserver
+```
