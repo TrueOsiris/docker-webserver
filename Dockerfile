@@ -1,25 +1,39 @@
 FROM php:apache-bullseye
 
-ARG DEBIAN_FRONTEND="noninteractive"
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=Europe/Brussels \
+    APACHE_DOCUMENT_ROOT=/www \
+    WEB_USER=www-data \
+    WEB_GROUP=www-data \
+    WEB_UID=33 \
+    WEB_GID=33
+
 RUN apt update -y && \
     apt-get upgrade -y && \
-    apt-get install -y  apt-utils \
-			libzlcore0.13 zlib1g-dev \
-			libpng-dev \
-			libjpeg-dev \
-                        vim \
- && apt-get clean autoclean \
- && apt-get autoremove -y \
- && rm -rf /var/lib/apt/lists/*
-ENV APACHE_DOCUMENT_ROOT /www
-RUN sed -ri -e "s!/var/www/html!$APACHE_DOCUMENT_ROOT!g" /etc/apache2/sites-available/*.conf
-RUN sed -ri -e "s!/var/www/!$APACHE_DOCUMENT_ROOT!g" /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
-RUN docker-php-ext-configure gd --with-jpeg=/usr/include/ && docker-php-ext-install gd
+    apt-get install -y \
+      apt-utils \
+      libzlcore0.13 zlib1g-dev \
+      libpng-dev \
+      libjpeg-dev \
+      vim && \
+    apt-get clean autoclean && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/*
 
-WORKDIR /www/
-VOLUME [ "/www", "/config" ]
-COPY start.sh /sbin/start.sh
-RUN chmod +x /sbin/start.sh; sync; 
-#COPY apache2.conf /etc/apache2/apache2.conf
+# adjust the DocumentRoot in Apache’s config
+RUN sed -ri -e "s!/var/www/html!$APACHE_DOCUMENT_ROOT!g" \
+           /etc/apache2/sites-available/*.conf && \
+    sed -ri -e "s!/var/www/!$APACHE_DOCUMENT_ROOT!g" \
+           /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+
+# build GD
+RUN docker-php-ext-configure gd --with-jpeg=/usr/include/ && \
+    docker-php-ext-install gd
+
+COPY start.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+WORKDIR /www
+VOLUME ["/www","/config"]
 EXPOSE 80
-CMD ["/sbin/start.sh"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

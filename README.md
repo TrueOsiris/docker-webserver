@@ -16,6 +16,16 @@ Base webserver with 2 external volumes : /config & /www \
 
 [Github](https://github.com/TrueOsiris/docker-webserver) [Dockerhub](https://hub.docker.com/repository/docker/trueosiris/webserver)
 
+
+| Variable                 | Default           | Description                                            |
+|--------------------------|-------------------|--------------------------------------------------------|
+| `APACHE_DOCUMENT_ROOT`   | `/www`            | Apache’s DocumentRoot                                  |
+| `WEB_USER`               | `www-data`        | Linux user Apache runs as                              |
+| `WEB_GROUP`              | `www-data`        | Linux group Apache runs as                             |
+| `WEB_UID`                | `33`              | UID to use (creates user if missing)                   |
+| `WEB_GID`                | `33`              | GID to use (creates group if missing)                  |
+| `TZ`                     | `Europe/Brussels` | Timezone for PHP (`date.timezone`)                     |
+
 minimal:
 ```
       docker create \
