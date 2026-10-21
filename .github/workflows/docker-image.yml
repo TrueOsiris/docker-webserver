@@ -111,25 +111,25 @@ jobs:
         id: test
         run: |
           set -euo pipefail
-          docker volume create t-www >/dev/null
-          docker volume create t-config >/dev/null
+          docker volume create smoke-www >/dev/null
+          docker volume create smoke-config >/dev/null
           start() {
-            docker rm -f t >/dev/null 2>&1 || true
-            docker run -d --name t -p 8080:80 -v t-www:/www -v t-config:/config "$@" webserver:test >/dev/null
+            docker rm -f smoke >/dev/null 2>&1 || true
+            docker run -d --name smoke -p 8080:80 -v smoke-www:/www -v smoke-config:/config "$@" webserver:test >/dev/null
             for _ in $(seq 1 30); do curl -fsS -o /dev/null http://localhost:8080/ && return 0; sleep 1; done
-            docker logs t; return 1
+            docker logs smoke; return 1
           }
           check() {
             page=$(curl -fsS http://localhost:8080/)
             grep -Eq 'PHP is working\. Version: [0-9]' <<<"$page" \
               || { echo "index.php was not executed by PHP"; exit 1; }
-            [ "$(docker exec t readlink /usr/local/etc/php/php.ini)" = /config/php.ini ] \
+            [ "$(docker exec smoke readlink /usr/local/etc/php/php.ini)" = /config/php.ini ] \
               || { echo "php.ini is not linked to /config"; exit 1; }
-            mods=$(docker exec t apache2ctl -M 2>/dev/null)
+            mods=$(docker exec smoke apache2ctl -M 2>/dev/null)
             grep -q rewrite_module <<<"$mods" \
               || { echo "mod_rewrite is not enabled"; exit 1; }
             code=$(curl -s -o /dev/null -w '%{http_code}' -F probe=1 http://localhost:8080/)
-            logs=$(docker logs t 2>&1)
+            logs=$(docker logs smoke 2>&1)
             if grep -q 'mitigation ENABLED' <<<"$logs"; then
               [ "$code" = 403 ] || { echo "mitigation enabled but multipart POST returned $code"; exit 1; }
             else
@@ -150,8 +150,8 @@ jobs:
 
           start; check
 
-          php=$(docker exec t php -r 'echo PHP_VERSION;')
-          logs=$(docker logs t 2>&1)
+          php=$(docker exec smoke php -r 'echo PHP_VERSION;')
+          logs=$(docker logs smoke 2>&1)
           mitigation=$(grep -o 'PHP2Shell mitigation [A-Za-z]*' <<<"$logs" | tail -n1)
           echo "php=$php" >> "$GITHUB_OUTPUT"
           {
@@ -160,7 +160,7 @@ jobs:
             echo "- PHP: \`$php\`"
             echo "- $mitigation"
           } >> "$GITHUB_STEP_SUMMARY"
-          docker rm -f t >/dev/null
+          docker rm -f smoke >/dev/null
 
       - uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
         if: github.event_name != 'pull_request'
