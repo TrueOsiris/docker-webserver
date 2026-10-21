@@ -1,49 +1,58 @@
-ARG BASE_IMAGE=php:8.4-apache-trixie
+# syntax=docker/dockerfile:1
+
+# Pinned to a digest by the CI workflow; override for local builds,
+# e.g. --build-arg BASE_IMAGE=php:8.4-apache-trixie
+ARG BASE_IMAGE=php:8.5-apache-trixie
 FROM ${BASE_IMAGE}
 
 ARG DEBIAN_FRONTEND=noninteractive
+
+LABEL org.opencontainers.image.title="webserver" \
+      org.opencontainers.image.description="Apache + PHP webserver with /www and /config volumes" \
+      org.opencontainers.image.source="https://github.com/TrueOsiris/docker-webserver"
+
 ENV TZ=Europe/Brussels \
     APACHE_DOCUMENT_ROOT=/www \
     WEB_USER=www-data \
     WEB_GROUP=www-data \
-    WEB_UID=33 \
-    WEB_GID=33 \
     PHP2SHELL_MITIGATION=auto
 
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y --no-install-recommends \
-      zlib1g-dev \
-      libpng-dev \
-      libjpeg-dev \
-      vim && \
-    apt-get clean && \
-    apt-get autoremove -y && \
-    rm -rf /var/lib/apt/lists/*
+# Debian security updates, vim, and the GD extension (JPEG + PNG).
+# The -dev packages are only needed to compile GD and are purged again; their runtime libraries are kept.
+RUN set -eux; \
+    apt-get update; \
+    apt-get upgrade -y; \
+    apt-get install -y --no-install-recommends vim; \
+    savedAptMark="$(apt-mark showmanual)"; \
+    apt-get install -y --no-install-recommends libjpeg62-turbo-dev libpng-dev zlib1g-dev; \
+    docker-php-ext-configure gd --with-jpeg; \
+    docker-php-ext-install -j"$(nproc)" gd; \
+    apt-mark auto '.*' > /dev/null; \
+    apt-mark manual $savedAptMark > /dev/null; \
+    extdir="$(php -r 'echo ini_get("extension_dir");')"; \
+    ldd "$extdir"/*.so \
+      | awk '/=>/ { so = $(NF-1); if (index(so, "/usr/local/") == 1) { next }; gsub("^/(usr/)?", "", so); printf "*%s\n", so }' \
+      | sort -u | xargs -r dpkg-query --search | cut -d: -f1 | sort -u | xargs -r apt-mark manual > /dev/null; \
+    apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
+    rm -rf /var/lib/apt/lists/*; \
+    php -r 'exit(function_exists("imagecreatefromjpeg") && function_exists("imagecreatefrompng") ? 0 : 1);'
 
-# adjust the DocumentRoot in Apache’s config
-RUN sed -ri -e "s!/var/www/html!$APACHE_DOCUMENT_ROOT!g" \
-           /etc/apache2/sites-available/*.conf && \
-    sed -ri -e "s!/var/www/!$APACHE_DOCUMENT_ROOT!g" \
-           /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+# DocumentRoot is resolved by Apache at runtime from $APACHE_DOCUMENT_ROOT (note the single quotes)
+RUN set -eux; \
+    sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf; \
+    sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
-# build GD
-RUN docker-php-ext-configure gd --with-jpeg && \
-    docker-php-ext-install gd
+COPY conf/webserver.conf conf/php2shell-mitigation.conf /etc/apache2/conf-available/
+COPY conf/php-webserver.ini /usr/local/etc/php/conf.d/zz-webserver.ini
+RUN a2enmod rewrite && a2enconf webserver
 
-# hardening + PHP2Shell (CVE-2026-109618 / CVE-2026-109619) mitigation, toggled by start.sh
-COPY php2shell-mitigation.conf /etc/apache2/conf-available/php2shell-mitigation.conf
-RUN a2enmod rewrite && \
-    printf 'ServerTokens Prod\nServerSignature Off\n' > /etc/apache2/conf-available/zz-hardening.conf && \
-    a2enconf zz-hardening && \
-    printf 'expose_php = Off\n' > /usr/local/etc/php/conf.d/zz-hardening.ini
-
-COPY start.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
+COPY --chmod=755 entrypoint.sh /usr/local/bin/entrypoint.sh
 
 WORKDIR /www
-VOLUME ["/www","/config"]
+VOLUME ["/www", "/config"]
 EXPOSE 80
-HEALTHCHECK --interval=60s --timeout=10s --start-period=20s --retries=3 \
-  CMD curl -fsS -o /dev/null http://localhost/ || exit 1
+# healthy = Apache answers with any status below 500 (an empty docroot returning 403 is still a running server)
+HEALTHCHECK --interval=60s --timeout=10s --start-period=30s --start-interval=2s --retries=3 \
+  CMD code=$(curl -s -o /dev/null -w '%{http_code}' http://localhost/) && [ "$code" -gt 0 ] && [ "$code" -lt 500 ] || exit 1
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["apache2-foreground"]
