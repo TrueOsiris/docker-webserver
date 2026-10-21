@@ -17,7 +17,7 @@ on:
         default: true
 
 env:
-  PHP_VERSION: '8.4'
+  PHP_VERSION: '8.5'
   PLATFORMS: linux/amd64,linux/arm64
 
 concurrency:
@@ -148,7 +148,22 @@ jobs:
           code=$(curl -s -o /dev/null -w '%{http_code}' -d probe=1 http://localhost:8080/)
           [ "$code" = 200 ] || { echo "forced mitigation: urlencoded POST returned $code"; exit 1; }
 
+          echo "mapping the web user to uid/gid 1000"
+          start -e WEB_UID=1000 -e WEB_GID=1000; check
+          workers=$(docker exec smoke sh -c 'for p in /proc/[0-9]*; do [ "$(cat $p/comm 2>/dev/null)" = apache2 ] && stat -c %u $p; done | sort -u | tr "\n" " "')
+          [ "$workers" = "0 1000 " ] || { echo "apache workers run as uid(s) '$workers', expected 1000"; exit 1; }
+          [ "$(docker exec smoke stat -c %u:%g /www/index.php)" = 1000:1000 ] || { echo "/www not owned by 1000:1000"; exit 1; }
+          docker exec smoke sh -c 'echo "<?php echo file_put_contents(\"/www/w.txt\", \"x\") === false ? \"NO\" : \"YES\";" > /www/w.php'
+          [ "$(curl -fsS http://localhost:8080/w.php)" = YES ] || { echo "PHP cannot write to /www"; exit 1; }
+          docker exec smoke rm -f /www/w.php /www/w.txt
+
           start; check
+          echo "waiting for the HEALTHCHECK"
+          for _ in $(seq 1 30); do
+            health=$(docker inspect -f '{{.State.Health.Status}}' smoke)
+            [ "$health" = starting ] || break; sleep 2
+          done
+          [ "$health" = healthy ] || { echo "container health: $health"; exit 1; }
 
           php=$(docker exec smoke php -r 'echo PHP_VERSION;')
           logs=$(docker logs smoke 2>&1)
@@ -176,6 +191,7 @@ jobs:
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
             type=raw,value=php${{ steps.test.outputs.php }},enable={{is_default_branch}}
+            type=raw,value=php${{ env.PHP_VERSION }},enable={{is_default_branch}}
             type=raw,value={{date 'YYYYMMDD'}},enable={{is_default_branch}}
             type=sha
             type=ref,event=pr
