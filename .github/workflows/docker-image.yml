@@ -115,7 +115,7 @@ jobs:
           docker volume create t-config >/dev/null
           start() {
             docker rm -f t >/dev/null 2>&1 || true
-            docker run -d --name t -p 8080:80 -v t-www:/www -v t-config:/config webserver:test >/dev/null
+            docker run -d --name t -p 8080:80 -v t-www:/www -v t-config:/config "$@" webserver:test >/dev/null
             for _ in $(seq 1 30); do curl -fsS -o /dev/null http://localhost:8080/ && return 0; sleep 1; done
             docker logs t; return 1
           }
@@ -139,6 +139,15 @@ jobs:
 
           start; check
           echo "recreating container on the same volumes"
+          start; check
+
+          echo "forcing the PHP2Shell mitigation on"
+          start -e PHP2SHELL_MITIGATION=on
+          code=$(curl -s -o /dev/null -w '%{http_code}' -F probe=1 http://localhost:8080/)
+          [ "$code" = 403 ] || { echo "forced mitigation: multipart POST returned $code"; exit 1; }
+          code=$(curl -s -o /dev/null -w '%{http_code}' -d probe=1 http://localhost:8080/)
+          [ "$code" = 200 ] || { echo "forced mitigation: urlencoded POST returned $code"; exit 1; }
+
           start; check
 
           php=$(docker exec t php -r 'echo PHP_VERSION;')
